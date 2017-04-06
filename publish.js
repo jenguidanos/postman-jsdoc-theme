@@ -307,7 +307,7 @@ function buildMemberNav(items, itemHeading, itemsSeen, linktoFn) {
 
                     methods.forEach(function (method) {
                         itemsNav += "<li data-type='method'>";
-                        itemsNav += linkto(method.longname, method.name);
+                        itemsNav += linkto(method.longname, method.name.replace(/"/gi, ''));
                         itemsNav += "</li>";
                     });
 
@@ -556,8 +556,8 @@ exports.publish = function(taffyData, opts, tutorials) {
     members.tutorials = tutorials.children;
 
     // output pretty-printed source files by default
-    var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false 
-        ? true 
+    var outputSourceFiles = conf.default && conf.default.outputSourceFiles !== false
+        ? true
         : false;
 
     // add template helpers
@@ -577,8 +577,8 @@ exports.publish = function(taffyData, opts, tutorials) {
         generateSourceFiles(sourceFiles, opts.encoding);
     }
 
-    if (members.globals.length) { 
-        generate('', 'Global', [{kind: 'globalobj'}], globalUrl); 
+    if (members.globals.length) {
+        generate('', 'Global', [{kind: 'globalobj'}], globalUrl);
     }
 
     // index page displays information from package.json and lists files
@@ -655,6 +655,6 @@ exports.publish = function(taffyData, opts, tutorials) {
             saveChildren(child);
         });
     }
-    
+
     saveChildren(tutorials);
 };
